@@ -1,1 +1,3 @@
-XCom-Save-Game-Editor
+Xcom-Save-Game-Editor
+
+Needs a savegame to work obviously
