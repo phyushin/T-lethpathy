@@ -1,29 +1,48 @@
-#!/usr/bin/env python3
-import argparse
-from lib.base_save_game_dat_file import BaseDatFile as Base
-from lib.save_game_dat_file import SaveGameDatFile as DatFile
-version = 0.2
-parser = argparse.ArgumentParser(
-	prog='XCOM Save Game Editor',
-	formatter_class=argparse.RawDescriptionHelpFormatter,
-	description='''\
-   _  ___________  __  ___  ____                ____   ___ __          
-  | |/_/ ___/ __ \/  |/  / / __/__ __  _____   / __/__/ (_) /____  ____
- _>  </ /__/ /_/ / /|_/ / _\ \/ _ `/ |/ / -_) / _// _  / / __/ _ \/ __/
-/_/|_|\___/\____/_/  /_/ /___/\_,_/|___/\__/ /___/\_,_/_/\__/\___/_/   
-                                                                      
-                                                    v{0} - @Phyushin'''.format(version),
-    epilog='XCOM Save Game Editor')
-group = parser.add_mutually_exclusive_group()
+#
 
-group.add_argument("-v","--verbose", help="Run editor in verbose mode", action="store_true")
-group.add_argument("-q","--quiet", help="Run editor in quiet mode (default)",default=True, action="store_true")
-parser.add_argument("-p","--path", help="Path to XCOM folder", required=True)
-parser.add_argument("-g","--game", type=int, choices=[1,2,3,4,5,6,7,8,9,10], help="Save game to edit", required=True)
-parser.add_argument("--cash", help = "Path the game to give you $800M", action="store_true")
-args = parser.parse_args()
+#Todo:
+## file ops
+## editing soldiers details - this will be tricky xD
+##
+from base import XcomBase as XcomBase
+from stores import Zrbite
 
-if args.cash:
-	gameData = DatFile(args.path, args.game, args.verbose)
-	gameData.add_cash()
-baseData = Base(args.path, args.game, args.verbose)
+base_file_stream = ""
+base_size = 0x128
+base_count = 7
+
+def load_basefile(path):
+    base = ""
+    with open(path + "\\BASE.DAT", 'rb') as base_file:
+        base =  base_file.read()
+    base_file.close()
+    print ("Base file loaded")
+    return base
+
+def main():
+    print("X-Com Save Game Editor - Name Subject to Change xD")
+    test_save_path = "E:\\Blog\\XCOM SaveGameEditor\\Games\\X-COM Terror from the Deep\\TFD\\GAME_1"
+    base_file = load_basefile(test_save_path)
+    Xc = [XcomBase(i) for i in range(base_count+1)]
+    
+
+    for base in Xc:
+        base.load_base(base_file[base.start_offset:base.end_offset])
+       # base.print_base_name()
+       # base.print_base_scientist_count()
+       # base.print_base_technician_count()
+        
+    store = Xc[0].load_store()
+    store.print_stores()
+    store.set_item_qty(Zrbite(0xff))
+       
+    store.print_stores()
+
+    
+
+
+       
+       
+    
+if __name__ == "__main__":
+    main()
