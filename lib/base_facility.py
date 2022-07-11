@@ -1,14 +1,14 @@
 class Facility():
     def __init__(self):
         self.val = "\xff"
-        
+
     def build(self, layout, time, x, y, force):
         if (not force and self.check_not_building_over(layout, x , y)): #thot how you do and in an if in python ?!?! idk xD
             layout[x-1][y-1] = self.val
             time[x-1][y-1] = "\x00"
         else:
-            print("I can't build here")
-    
+            print("We can't build here")
+
     def check_not_building_over(self, layout, x, y):
         return (layout[x-1][y-1] == "\xff")
 
@@ -50,7 +50,7 @@ class Gauss_Defences(Facility):
 
 class Sonic_Defences(Facility):
     def __init__(self):
-        self.val ="\x0a"        
+        self.val ="\x0a"
 
 class PWT_Defences(Facility):
     def __init__(self):
@@ -77,7 +77,7 @@ class SubPen(Facility):
         self.val = "\x10" #top left
 
     def build(self, layout, time, x, y, force):
-        if (not force and self.check_not_building_over(layout, x, y)): 
+        if (not force and self.check_not_building_over(layout, x, y)):
             layout[x-1][y-1] = "\x10"     # top left
             layout[x-1][y] = "\x11"   # top right
             layout[x][y-1] = "\x12"   # bottom left
@@ -90,6 +90,6 @@ class SubPen(Facility):
             print("I can't build here")
 
     def check_not_building_over(self, layout, x, y):
-        if ((layout[x-1][y-1] == "\xff") and (layout[x-1][y] == "\xff") and (layout[x][y-1] == "\xff") and (layout[x][y] == "\xff")): 
+        if ((layout[x-1][y-1] == "\xff") and (layout[x-1][y] == "\xff") and (layout[x][y-1] == "\xff") and (layout[x][y] == "\xff")):
             return True # bottom left
-        
+

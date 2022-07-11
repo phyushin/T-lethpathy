@@ -1,48 +1,50 @@
-#
-
-#Todo:
+#!/usr/bin/python3
+# Todo:
 ## file ops
 ## editing soldiers details - this will be tricky xD
 ##
-from base import XcomBase as XcomBase
-from stores import Zrbite
 
-base_file_stream = ""
-base_size = 0x128
-base_count = 7
+import argparse
+from lib.base import BaseGameFile as XcomBase
+from lib.stores import Zrbite
+from os import path
+from pathlib import Path as plib
 
-def load_basefile(path):
+__author__ = "Paul W"
+__version__ = 0.2
+
+def load_base_file(file_path):
     base = ""
-    with open(path + "\\BASE.DAT", 'rb') as base_file:
-        base =  base_file.read()
-    base_file.close()
     print ("Base file loaded")
-    return base
+    return bases
+
+def load_save_game_file(file_path):
+    p = plib(file_path)
+
+    if not p.is_dir():
+        print (f"Failed to load file at {file_path}")
+        save_game_file = {}
+    else:
+        save_game_file = load_base_file(file_path)
+
+    return save_game_file
 
 def main():
-    print("X-Com Save Game Editor - Name Subject to Change xD")
-    test_save_path = "E:\\Blog\\XCOM SaveGameEditor\\Games\\X-COM Terror from the Deep\\TFD\\GAME_1"
-    base_file = load_basefile(test_save_path)
-    Xc = [XcomBase(i) for i in range(base_count+1)]
-    
+    title = f"T\'leth-pathy, The X-Com savegame editor v{__version__}"
 
-    for base in Xc:
-        base.load_base(base_file[base.start_offset:base.end_offset])
-       # base.print_base_name()
-       # base.print_base_scientist_count()
-       # base.print_base_technician_count()
-        
-    store = Xc[0].load_store()
-    store.print_stores()
-    store.set_item_qty(Zrbite(0xff))
-       
-    store.print_stores()
+    parser = argparse.ArgumentParser(title)
+    parser.add_argument("-f", dest="file_path", help="Path where the 'GAME_N' folders are", required=True)
+    parser.add_argument("-gn", dest="game_no", help="the save game slot (1-10)", required=True)
 
-    
+    args=parser.parse_args()
 
+    save_path = path.abspath(
+            path.join(f"{args.file_path}",f"GAME_{args.game_no}")
+    )
 
-       
-       
-    
+    bases = XcomBase(save_path)
+
+    bases.print_info()
+
 if __name__ == "__main__":
     main()
