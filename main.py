@@ -46,7 +46,7 @@ def main():
     bases = xcombases.get_bases()
 
     print(bases[0].get_info())
-    bases[0].set_scientist_count(123)
+    bases[0].set_scientist_count(500)
     print(bases[0].get_info())
 
 if __name__ == "__main__":

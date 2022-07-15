@@ -17,11 +17,8 @@ class BaseItem(SaveGameFile):
             return list(self.base_data[290:291])[0]
 
     def __set_staff__(self, is_scientist, count):
-        print(count)
-        count = str(count % 255)
-        print(count)
-        count = count.encode(encoding=self.encoding)
-
+        count = count % 255
+        count = count.to_bytes(1,'little')
         if is_scientist:
             self.base_data[291:292] = count
         else:
