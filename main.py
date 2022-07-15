@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # Todo:
 ## file ops
 ## editing soldiers details - this will be tricky xD
@@ -30,7 +30,7 @@ def load_save_game_file(file_path):
     return save_game_file
 
 def main():
-    title = f"T\'leth-pathy, The X-Com savegame editor v{__version__}"
+    title = f"T\'leth-pathy, The X-Com savegame editor v{__version__}\n\n"
 
     parser = argparse.ArgumentParser(title)
     parser.add_argument("-f", dest="file_path", help="Path where the 'GAME_N' folders are", required=True)
@@ -42,9 +42,12 @@ def main():
             path.join(f"{args.file_path}",f"GAME_{args.game_no}")
     )
 
-    bases = XcomBase(save_path)
+    xcombases = XcomBase(save_path)
+    bases = xcombases.get_bases()
 
-    bases.print_info()
+    print(bases[0].get_info())
+    bases[0].set_scientist_count(123)
+    print(bases[0].get_info())
 
 if __name__ == "__main__":
     main()
