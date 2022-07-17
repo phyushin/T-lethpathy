@@ -42,20 +42,23 @@ def main():
             path.join(f"{args.file_path}",f"GAME_{args.game_no}")
     )
 
-    xcombases = XcomBase(save_path)
-    bases = xcombases.get_bases()
+    xcombase = XcomBase(save_path)
+    bases = xcombase.get_bases()
 
     li_glob = LiGlob(save_path)
     li_glob.load_file()
+    li_glob.set_max_money()
 
-    print(li_glob.get_info())
-    print(f"Current funds: $ {li_glob.get_money()}")
+    # lets mess with base number 1
+    print(bases[0].get_info())
 
-    li_glob.set_money(20000000000000)
-    print(f"Current funds: $ {li_glob.get_money()}")
+    bases[0].set_scientist_count(255)
+    bases[0].set_name('SERENITY')
 
 
-    print(li_glob.get_info())
+    xcombase.update_base(bases[0])
+    xcombase.save_bases()
+    print(bases[0].get_info())
 
 if __name__ == "__main__":
     main()

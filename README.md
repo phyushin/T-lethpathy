@@ -7,6 +7,11 @@ currently working on altering all the various parts of the base before firing th
 # Todo:
 
 ### BASE.DAT - Scientists, Facilities, Stores
-### LIGBLOB.DAT - Money
+    - Scientists/Technicians ---Done
+    - Stores
+    - Facilities
+        - Build
+        - Set Build Time 0
+### LIGBLOB.DAT - Money -- DONE!
 ### ASTORE.DAT - Alien Containment
 ### Research?

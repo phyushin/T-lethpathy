@@ -36,5 +36,5 @@ class SaveGameFile():
             out_file.close()
 
     def get_info(self):
-        return f"name:\n{self.file_name}\nfull path:\n{self.file_path}\ndata:\n{self.data}"
+        return f"Name:\n{self.file_name}\nFull path:\n{self.file_path}\nData:\n{self.data}"
 
