@@ -6,7 +6,7 @@
 
 import argparse
 from lib.base import BaseGameFile as XcomBase
-from lib.stores import Zrbite
+from lib.liglob import LiGlob
 from os import path
 from pathlib import Path as plib
 
@@ -45,9 +45,17 @@ def main():
     xcombases = XcomBase(save_path)
     bases = xcombases.get_bases()
 
-    print(bases[0].get_info())
-    bases[0].set_scientist_count(500)
-    print(bases[0].get_info())
+    li_glob = LiGlob(save_path)
+    li_glob.load_file()
+
+    print(li_glob.get_info())
+    print(f"Current funds: $ {li_glob.get_money()}")
+
+    li_glob.set_money(20000000000000)
+    print(f"Current funds: $ {li_glob.get_money()}")
+
+
+    print(li_glob.get_info())
 
 if __name__ == "__main__":
     main()
