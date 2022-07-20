@@ -31,15 +31,15 @@ class BaseGameFile(SaveGameFile):
         return bases
 
     def update_base(self, base): # don't forget that the base number != base _index_
-        self.bases[base.get_base_no()-1].set_base_data(base.get_base_data())
+        self.bases[base.get_base_no()-1].set_base_data(base.get_data())
 
     def save_bases(self):
         self.data = "" # if we don't do this it'll append and crash xD
         for _base in self.bases:
             if len(self.data) <1:
-                self.data = _base.get_base_data()
+                self.data = _base.get_data()
             else:
-                self.data = self.data + _base.get_base_data()
+                self.data = self.data + _base.get_data()
         self.save_file()
 
     def get_bases(self):

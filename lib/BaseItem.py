@@ -1,4 +1,6 @@
 from lib.SaveGameFile import SaveGameFile
+# from lib.Stores import BaseStores as Stores
+from lib.BaseFacility import Facility, BaseLayout, BuildTimeLayout
 
 # This class will handle per base manipulation
 class BaseItem(SaveGameFile):
@@ -9,7 +11,10 @@ class BaseItem(SaveGameFile):
         self.base_data = bytearray(data)
         self.technician_count = 0
         self.scientist_count = 0
+        self.layout = {}
+        self.build_times = {}
 
+### base
     def __get_staff__(self, is_scientist):
         if is_scientist:
             return list(self.base_data[291:292])[0]
@@ -48,8 +53,35 @@ class BaseItem(SaveGameFile):
     def set_technician_count(self, count):
         self.__set_staff__(False, count)
 
-    def get_base_data(self):
+#### BASE LAYOUT
+
+    def load_layout(self):
+        # base layout is a 6x6 grid
+        # starting at 218 bytes in and then 36 bytes later ... the build times for each of these items is listed
+        self.layout = BaseLayout(self.base_data)
+        self.build_times = BuildTimeLayout(self.base_data)
+
+    def save_layout(self):
+        self.base_data[self.layout.get_start_offset():self.layout.get_end_offset()] = self.layout.get_layout()
+        self.base_data[self.build_times.get_start_offset():self.build_times.get_end_offset()]= self.build_times.get_layout()
+
+    def get_layout(self):
+        return self.layout.get_data()
+
+    def get_data(self):
         return self.base_data
+
+    def get_construction_time_layout(self):
+        return self.build_times.get_data()
+
+    def build_facility(self, x_pos, y_pos, facility):
+        print(f"put {facility} into {x_pos},{y_pos}")
+
+    def build_facilities(self): ## just mark everything as fully built
+        new_build_times = "\x00"*35
+        _start_offset = self.build_times.get_start_offset()
+        _end_offset = self.build_times.get_end_offset()
+        self.base_data[_start_offset:_end_offset] = bytearray(new_build_times.encode(encoding=self.encoding))
 
     def set_base_data(self, base_data):
         self.base_data = base_data

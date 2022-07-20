@@ -7,6 +7,8 @@
 import argparse
 from lib.base import BaseGameFile as XcomBase
 from lib.liglob import LiGlob
+from lib.stores import Zrbite
+from lib.BaseFacility import *
 from os import path
 from pathlib import Path as plib
 
@@ -29,6 +31,12 @@ def load_save_game_file(file_path):
 
     return save_game_file
 
+def max_out_money(save_path):
+    li_glob = LiGlob(save_path)
+    li_glob.load_file()
+    li_glob.set_max_money()
+    li_glob.save_file()
+
 def main():
     title = f"T\'leth-pathy, The X-Com savegame editor v{__version__}\n\n"
 
@@ -45,20 +53,38 @@ def main():
     xcombase = XcomBase(save_path)
     bases = xcombase.get_bases()
 
-    li_glob = LiGlob(save_path)
-    li_glob.load_file()
-    li_glob.set_max_money()
+    # first let's max out our money
+    max_out_money(save_path)
 
-    # lets mess with base number 1
-    print(bases[0].get_info())
+    # next let's rename out base!
+    bases[0].set_name('STEELCON!')
 
+    # then max out scientists
     bases[0].set_scientist_count(255)
-    bases[0].set_name('SERENITY')
+    # lets mess with base number 1
+
+    # set in progress build to finished
+
+    bases[0].load_layout()
+    _layout = bases[0].get_layout() # get current layout
+    _construction_times = bases[0].get_construction_time_layout() #get build times
+
+    ## Add alien containment to store our aliens (otherwise they will die)
+    ac = Alien_Contain()
+    print(ac.get_value())
+    bases[0].build_facility(1,4, ac.get_value())
+    # print("add facility needs to translate the x,y co-ords into correct ref")
+
+    # bases[0].build_facilities() # set all build times of base to 0 effectivly insta-build
 
 
-    xcombase.update_base(bases[0])
-    xcombase.save_bases()
-    print(bases[0].get_info())
+    # add stuff to stores
+
+    # add aliens to alien containment
+
+    xcombase.update_base(bases[0]) # update the base we've been tinkering with
+    xcombase.save_bases() # write all base data back to base.dat
+
 
 if __name__ == "__main__":
     main()
