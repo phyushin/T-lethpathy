@@ -3,20 +3,24 @@
 
 class BaseLayout():
     start_offset = 0xDA
-    end_offset = 0xFD
+    end_offset = 0xFE
     data={}
     layout={}
 
     def __init__(self, layout_stream):
         self.data=bytearray(layout_stream[self.start_offset:self.end_offset])
+        self.load_grid()
 
-    def load_layout(self):
+    def load_grid(self):
         i = 0
         while i < 6:
-            self.layout[i]=self.data[i*6:((i+1)*6)]
-            i += 1
+            row_start = i*6
+            row_end = ((i+1)*6)
+            self.layout[i]=self.data[row_start:row_end]
+            i +=1
 
-        print(self.layout)
+    def get_grid(self):
+        return self.layout
 
     def get_start_offset(self):
         return self.start_offset
@@ -29,6 +33,12 @@ class BaseLayout():
 
     def get_data(self):
         return self.data
+
+    def set_facility(self, facility):
+        _grid = self.get_grid()
+        print(f"set facility {_grid}")
+        _grid[facility.get_x_pos()][facility.get_y_pos()] = facility.get_val()
+        print(f"set facility {_grid}")
 
 
 class BuildTimeLayout(BaseLayout):

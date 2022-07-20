@@ -75,7 +75,13 @@ class BaseItem(SaveGameFile):
         return self.build_times.get_data()
 
     def build_facility(self, x_pos, y_pos, facility):
-        print(f"put {facility} into {x_pos},{y_pos}")
+        self.load_layout() # ensure base layout and times are loaded
+        self.layout.load_grid()
+        _layout = self.layout.get_grid()
+        facility.set_x_pos(x_pos)
+        facility.set_y_pos(y_pos)
+        _layout.set_facility(facility)
+
 
     def build_facilities(self): ## just mark everything as fully built
         new_build_times = "\x00"*35
