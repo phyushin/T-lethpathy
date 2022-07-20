@@ -74,14 +74,20 @@ class BaseItem(SaveGameFile):
     def get_construction_time_layout(self):
         return self.build_times.get_data()
 
-    def build_facility(self, x_pos, y_pos, facility):
+    def build_facility(self, x_pos, y_pos, facility): # this logic needs to go the other way to normal grid ref we need to know which row we're on before cols (x before y)
+        _start_offset = self.layout.get_start_offset()
+        _end_offset = self.layout.get_end_offset()
+
         self.load_layout() # ensure base layout and times are loaded
         self.layout.load_grid()
         _layout = self.layout.get_grid()
-        facility.set_x_pos(x_pos)
-        facility.set_y_pos(y_pos)
-        _layout.set_facility(facility)
-
+        # perhaps we need to do it bit by bit?
+        _row = list(_layout[y_pos-1])
+        _row[x_pos-1] = int.from_bytes(facility.get_value(), 'little') # the first row in each of these will be the index so that isn't right
+        _layout[y_pos-1] = bytearray(_row)
+        self.layout.set_grid(_layout)
+        self.base_data[_start_offset:_end_offset] = self.layout.get_data()
+        self.build_facilities()
 
     def build_facilities(self): ## just mark everything as fully built
         new_build_times = "\x00"*35

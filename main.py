@@ -57,7 +57,7 @@ def main():
     max_out_money(save_path)
 
     # next let's rename out base!
-    bases[0].set_name('STEELCON!')
+    bases[0].set_name('Hi,STEELCON!')
 
     # then max out scientists
     bases[0].set_scientist_count(255)
@@ -71,11 +71,9 @@ def main():
 
     ## Add alien containment to store our aliens (otherwise they will die)
     ac = Alien_Contain()
-    print(ac.get_value())
-    bases[0].build_facility(1,4, ac.get_value())
-    # print("add facility needs to translate the x,y co-ords into correct ref")
-
-    # bases[0].build_facilities() # set all build times of base to 0 effectivly insta-build
+    tr = Transmission_Resolver()
+    bases[0].build_facility(1,4,ac) # Add alien containment else our alien chaps won't survive!
+    bases[0].build_facility(2,4,tr) # lets replace that poor sonar with the transmission resolver
 
 
     # add stuff to stores

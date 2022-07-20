@@ -22,6 +22,14 @@ class BaseLayout():
     def get_grid(self):
         return self.layout
 
+    def set_grid(self, data): # maybe this will work?
+        i = 0
+        while i < 6:
+            row_start = i*6
+            row_end = ((i+1)*6)
+            self.data[row_start:row_end] = self.layout[i]
+            i += 1
+
     def get_start_offset(self):
         return self.start_offset
 
@@ -51,18 +59,26 @@ class BuildTimeLayout(BaseLayout):
 class Facility():
     x_pos = 0 # X but we're taking top left as the sub pen has 4 parts and is special
     y_pos = 0
+    encoding='utf-8'
 
     def __init__(self):
         self.val = "\xff"
 
     def get_value(self):
-        return self.val
+        return self.val.encode(encoding=self.encoding)
+
+    def set_x(self, x):
+        self.x = x
 
     def get_x(self):
         return self.x
 
+    def set_y(self, y):
+        self.y = y
+
     def get_y(self):
         return y
+
 
     def check_if_space_avail(self, data):
         ret_val = False

@@ -10,8 +10,8 @@ currently working on altering all the various parts of the base before firing th
     - Scientists/Technicians ---Done
     - Stores
     - Facilities
-        - Build - lets work on build time stuff
-        - Set Build Time
+        - Build - lets work on build time stuff --done!
+        - Set Build Time - Done ish
 ### LIGBLOB.DAT - Money -- DONE!
 ### ASTORE.DAT - Alien Containment
 ### Research?
