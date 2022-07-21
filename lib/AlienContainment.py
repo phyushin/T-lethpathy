@@ -41,13 +41,8 @@ class AlienContainment(SaveGameFile):
     def capture_alien(self, position, alien, base_no):
         base_idx = base_no -1
         _start_pos = (position-1)*12
-
-        print(_start_pos)
-        print(alien.get_data())
-
         _captured = alien.get_data() + base_idx.to_bytes(1, 'little') + "\x00".encode(encoding=self.encoding)*12
         _captured = _captured[0:12]
-        print(_captured)
         self.data[_start_pos:_start_pos+12] = _captured
         self.save_file()
 

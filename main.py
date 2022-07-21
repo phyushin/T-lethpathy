@@ -14,7 +14,7 @@ from os import path
 from pathlib import Path as plib
 
 __author__ = "Paul W"
-__version__ = 0.2
+__version__ = 0.8
 
 def load_base_file(file_path):
     base = ""
@@ -57,14 +57,15 @@ def main():
     max_out_money(save_path)
 
     # next let's rename out base!
-    bases[0].set_name('Hi,STEELCON!')
+    # bases[0].set_name('Hi,STEELCON!')
 
     # then max out scientists
-    bases[0].set_scientist_count(250)
+    # bases[0].set_scientist_count(250)
     # lets mess with base number 1
 
     # set in progress build to finished
 
+    """
     bases[0].load_layout()
     _layout = bases[0].get_layout() # get current layout
     _construction_times = bases[0].get_construction_time_layout() #get build times
@@ -73,11 +74,13 @@ def main():
     ac = Alien_Contain()
     tr = Transmission_Resolver()
     lab = Lab()
+    """
 
     _rank = Rank()
+    """
     bases[0].build_facility(1,4,ac) # Add alien containment else our alien chaps won't survive!
     bases[0].build_facility(2,4,tr) # lets replace that poor sonar with the transmission resolver
-
+    """
    #we now need a few extra labs for all our scientists)
     """
     bases[0].build_facility(3,5,lab)
@@ -86,19 +89,37 @@ def main():
     bases[0].build_facility(4,6,lab)
     """
     # add stuff to stores
+    """
+    _zrbite = Zrbite(100000)
+    _ap = Aqua_Plastics(100000)
+    bases[0].set_stores(_zrbite)
+    bases[0].set_stores(_ap)
+    """
 
     xcombase.update_base(bases[0]) # update the base we've been tinkering with
     xcombase.save_bases() # write all base data back to base.dat
 
+    ### Alien Containment Stuff
     containment = AlienContainment(save_path)
     aq = Aquatoid()
     aqn = Aquatoid()
+    lobsterman = Lobster_man()
+    lobsterman.set_rank(_rank.commander())
     aqn.set_rank(_rank.navigator())
     deep_one = DeepOne()
 
+    """ # Lets capture some aliens
     containment.capture_alien(1, aq, bases[0].get_base_no())
     containment.capture_alien(2, deep_one, bases[0].get_base_no())
     containment.capture_alien(3, aqn, bases[0].get_base_no())
+    """
+
+    """
+    containment.capture_alien(1, lobsterman, bases[0].get_base_no())
+    containment.capture_alien(2, lobsterman, bases[0].get_base_no())
+    lobsterman.set_rank(_rank.navigator())
+    containment.capture_alien(3, lobsterman, bases[0].get_base_no())
+    """
 
 if __name__ == "__main__":
     main()

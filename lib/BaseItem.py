@@ -13,6 +13,7 @@ class BaseItem(SaveGameFile):
         self.scientist_count = 0
         self.layout = {}
         self.build_times = {}
+        self.stores = {}
 
 ### base
     def __get_staff__(self, is_scientist):
@@ -97,6 +98,13 @@ class BaseItem(SaveGameFile):
 
     def set_base_data(self, base_data):
         self.base_data = base_data
+
+    def get_stores(self):
+        return self.stores
+
+    def set_stores(self, item):
+        _start_pos = item.get_location()
+        self.base_data[_start_pos:_start_pos+2] =item.get_qty()
 
     def get_info(self):
         base_info = f"Base No:{self.get_base_no()}\nName: {self.get_name().decode(encoding=self.encoding)}\n"
