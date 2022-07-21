@@ -14,4 +14,6 @@ currently working on altering all the various parts of the base before firing th
         - Set Build Time - Done ish
 ### LIGBLOB.DAT - Money -- DONE!
 ### ASTORE.DAT - Alien Containment
+        - lobsterman commando
+        - Deep one
 ### Research?
