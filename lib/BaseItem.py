@@ -38,6 +38,7 @@ class BaseItem(SaveGameFile):
         name = f"{name}{filler*12}" # don't ask xD
         trunc_name = name[0:12] #base names can be 12 chars max so truncate.
         self.base_data[0:12] = trunc_name.encode(encoding=self.encoding)
+        print(f"Base renamed to: {trunc_name}")
 
     def get_base_no(self):
         return self.base_no
@@ -49,6 +50,7 @@ class BaseItem(SaveGameFile):
         return self.__get_staff__(False)
 
     def set_scientist_count(self, count):
+        print(f"Setting scientist count to: {count}")
         self.__set_staff__(True, count)
 
     def set_technician_count(self, count):
@@ -95,6 +97,7 @@ class BaseItem(SaveGameFile):
         _start_offset = self.build_times.get_start_offset()
         _end_offset = self.build_times.get_end_offset()
         self.base_data[_start_offset:_end_offset] = bytearray(new_build_times.encode(encoding=self.encoding))
+        print("removed build times")
 
     def set_base_data(self, base_data):
         self.base_data = base_data

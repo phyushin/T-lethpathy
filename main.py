@@ -33,6 +33,7 @@ def load_save_game_file(file_path):
     return save_game_file
 
 def max_out_money(save_path):
+    print("Maxing out money")
     li_glob = LiGlob(save_path)
     li_glob.load_file()
     li_glob.set_max_money()
@@ -54,7 +55,7 @@ def main():
     bases = xcombase.get_bases()
 
     # first let's max out our money
-    max_out_money(save_path)
+    # max_out_money(save_path)
 
     # next let's rename out base!
     # bases[0].set_name('Hi,STEELCON!')
@@ -65,7 +66,7 @@ def main():
 
     # set in progress build to finished
 
-    """
+
     bases[0].load_layout()
     _layout = bases[0].get_layout() # get current layout
     _construction_times = bases[0].get_construction_time_layout() #get build times
@@ -74,15 +75,19 @@ def main():
     ac = Alien_Contain()
     tr = Transmission_Resolver()
     lab = Lab()
-    """
+    # bases[0].build_facilities()
 
     _rank = Rank()
     """
+    print("building alien containment")
     bases[0].build_facility(1,4,ac) # Add alien containment else our alien chaps won't survive!
+
+    print("building transmission resolver")
     bases[0].build_facility(2,4,tr) # lets replace that poor sonar with the transmission resolver
-    """
+
    #we now need a few extra labs for all our scientists)
-    """
+
+    print("building 4 more labs for all the extra scientists")
     bases[0].build_facility(3,5,lab)
     bases[0].build_facility(3,6,lab)
     bases[0].build_facility(4,5,lab)
@@ -92,10 +97,12 @@ def main():
     """
     _zrbite = Zrbite(100000)
     _ap = Aqua_Plastics(100000)
+    _deep_one_corpse = Deep_One(1)
+    print("adding 30k Zrbite and AquaPlastics")
     bases[0].set_stores(_zrbite)
     bases[0].set_stores(_ap)
+    bases[0].set_stores(_deep_one_corpse)
     """
-
     xcombase.update_base(bases[0]) # update the base we've been tinkering with
     xcombase.save_bases() # write all base data back to base.dat
 
@@ -106,19 +113,27 @@ def main():
     lobsterman = Lobster_man()
     lobsterman.set_rank(_rank.commander())
     aqn.set_rank(_rank.navigator())
-    deep_one = DeepOne()
+    live_deep_one = DeepOne()
 
-    """ # Lets capture some aliens
+    # Lets capture some aliens
+    """
+    print("Capturing Aquatoid soldier")
     containment.capture_alien(1, aq, bases[0].get_base_no())
-    containment.capture_alien(2, deep_one, bases[0].get_base_no())
-    containment.capture_alien(3, aqn, bases[0].get_base_no())
-    """
 
-    """
-    containment.capture_alien(1, lobsterman, bases[0].get_base_no())
-    containment.capture_alien(2, lobsterman, bases[0].get_base_no())
+    print("Capturing Deep One")
+    containment.capture_alien(2, live_deep_one, bases[0].get_base_no())
+
+    print("Capturing Aquatoid navigator")
+    containment.capture_alien(3, aqn, bases[0].get_base_no())
+
+    containment.capture_alien(4, lobsterman, bases[0].get_base_no())
+    print("Capturing Lobsterman Commander")
+
+    containment.capture_alien(5, lobsterman, bases[0].get_base_no())
     lobsterman.set_rank(_rank.navigator())
-    containment.capture_alien(3, lobsterman, bases[0].get_base_no())
+
+    print("Capturing Lobsterman Navigator")
+    containment.capture_alien(6, lobsterman, bases[0].get_base_no())
     """
 
 if __name__ == "__main__":
