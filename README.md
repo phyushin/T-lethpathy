@@ -6,15 +6,6 @@ currently working on altering all the various parts of the base before firing th
 
 # Todo:
 
-### BASE.DAT - Scientists, Facilities, Stores
-    - Scientists/Technicians ---Done
-    - Stores ---Done
-    - Facilities
-        - Build - lets work on build time stuff -- Done!
-        - Set Build Time - Done
-        - build sub pens
-### LIGBLOB.DAT - Money -- DONE!
-### ASTORE.DAT - Alien Containment --- DONE
-        - lobsterman commando
-        - Deep one
+### refactor xD
+### TUI
 ### Research?
