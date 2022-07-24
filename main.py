@@ -55,13 +55,13 @@ def main():
     bases = xcombase.get_bases()
 
     # first let's max out our money
-    # max_out_money(save_path)
+    max_out_money(save_path)
 
     # next let's rename out base!
-    # bases[0].set_name('Hi,STEELCON!')
+    bases[0].set_name('Hi,STEELCON!')
 
     # then max out scientists
-    # bases[0].set_scientist_count(250)
+    bases[0].set_scientist_count(250)
     # lets mess with base number 1
 
     # set in progress build to finished
@@ -75,10 +75,8 @@ def main():
     ac = Alien_Contain()
     tr = Transmission_Resolver()
     lab = Lab()
-    # bases[0].build_facilities()
-
     _rank = Rank()
-    """
+
     print("building alien containment")
     bases[0].build_facility(1,4,ac) # Add alien containment else our alien chaps won't survive!
 
@@ -92,9 +90,9 @@ def main():
     bases[0].build_facility(3,6,lab)
     bases[0].build_facility(4,5,lab)
     bases[0].build_facility(4,6,lab)
-    """
+
     # add stuff to stores
-    """
+
     _zrbite = Zrbite(100000)
     _ap = Aqua_Plastics(100000)
     _deep_one_corpse = Deep_One(1)
@@ -102,7 +100,7 @@ def main():
     bases[0].set_stores(_zrbite)
     bases[0].set_stores(_ap)
     bases[0].set_stores(_deep_one_corpse)
-    """
+
     xcombase.update_base(bases[0]) # update the base we've been tinkering with
     xcombase.save_bases() # write all base data back to base.dat
 
@@ -116,7 +114,7 @@ def main():
     live_deep_one = DeepOne()
 
     # Lets capture some aliens
-    """
+
     print("Capturing Aquatoid soldier")
     containment.capture_alien(1, aq, bases[0].get_base_no())
 
@@ -134,7 +132,7 @@ def main():
 
     print("Capturing Lobsterman Navigator")
     containment.capture_alien(6, lobsterman, bases[0].get_base_no())
-    """
+
 
 if __name__ == "__main__":
     main()
