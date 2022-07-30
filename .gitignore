@@ -1,4 +1,9 @@
 *.pyc
+<<<<<<< HEAD
 __init__.py
 __pycache__/
 .DS_Store/
+=======
+.DS_Store/
+__pycache__
+>>>>>>> 3e54848353d5acbced449bc08026123238c1e9f1
