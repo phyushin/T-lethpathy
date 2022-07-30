@@ -46,12 +46,17 @@ class AlienContainment(SaveGameFile):
         self.data[_start_pos:_start_pos+12] = _captured
         self.save_file()
 
+    def capture_aliens(self, aliens, base):
+        i = 1
+        for alien in aliens:
+            self.capture_alien(i, alien, base.get_base_no())
+            i = i+1
 
 class Alien(): ## 12 bytes between each capture
     encoding='UTF-8'
-    def __init__(self):
-        self.race = "\x00"
-        self.rank = "\x00"
+    def __init__(self, race, rank):
+        self.race = race
+        self.rank = rank
         self.base = "\x00"
 
     def get_data(self):
@@ -64,56 +69,45 @@ class Alien(): ## 12 bytes between each capture
         self.rank = rank
 
 class Aquatoid(Alien):
-    def __init__(self):
-        self.race = "\x01"
-        self.rank = "\x06" #soldier
+    def __init__(self, rank):
+        super().__init__("\x01", rank)
 
 class Gill_man(Alien):
-    def __init__(self):
-        self.race = "\x02"
-        self.rank = "\x06" #soldier
+    def __init__(self, rank):
+        super().__init__("\x02", rank)
 
 class Lobster_man(Alien):
-    def __init__(self):
-        self.race = "\x03"
-        self.rank = "\x06" #soldier
+    def __init__(self, rank):
+        super().__init__("\x03", rank)
 
 class Tasoth(Alien):
-    def __init__(self):
-        self.race = "\x04"
-        self.rank = "\x06" #soldier
+    def __init__(self, rank):
+        super().__init__("\x04", rank)
 
 class Calcinite(Alien):
     def __init__(self):
-        self.race = "\x05"
-        self.rank = "\x07"
+        super().__init__("\x05", "\x07")
 
 class DeepOne(Alien):
     def __init__(self):
-        self.race = "\x06"
-        self.rank = "\x07"
+        super().__init__("\x06", "\x07")
 
 class Bio_Drone(Alien):
     def __init__(self):
-        self.race = "\x07"
-        self.rank = "\x07"
+        super().__init__("\x07", "\x07")
 
 class Tentaculat(Alien):
     def __init__(self):
-        self.race = "\x08"
-        self.rank = "\x07"
+        super().__init__("\x08", "\x07")
 
 class Triscene(Alien):
     def __init__(self):
-        self.race = "\x09"
-        self.rank = "\x07"
+        super().__init__("\x09", "\x07")
 
 class Hallucinoid(Alien):
     def __init__(self):
-        self.race = "\x0a"
-        self.rank = "\x07"
+        super().__init__("\x0a", "\x07")
 
 class Xarquid(Alien):
     def __init__(self):
-        self.race = "\x0b"
-        self.rank = "\x07"
+        super().__init__("\x0b","\x07")
